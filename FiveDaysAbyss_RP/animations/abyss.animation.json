@@ -1,0 +1,291 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.abyss.humanoid.idle": {
+      "loop": true,
+      "animation_length": 4.0,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": [
+              4,
+              0,
+              3
+            ],
+            "2.0": [
+              10,
+              0,
+              6
+            ],
+            "4.0": [
+              4,
+              0,
+              3
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.0": [
+              4,
+              0,
+              -3
+            ],
+            "2.0": [
+              10,
+              0,
+              -6
+            ],
+            "4.0": [
+              4,
+              0,
+              -3
+            ]
+          }
+        },
+        "head": {
+          "rotation": [
+            "query.target_x_rotation * 0.5",
+            "query.target_y_rotation * 0.75",
+            0
+          ]
+        },
+        "body": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "2.0": [
+              2,
+              0,
+              0
+            ],
+            "4.0": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.abyss.stalker.idle": {
+      "loop": true,
+      "animation_length": 3.0,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": [
+              8,
+              0,
+              4
+            ],
+            "1.5": [
+              16,
+              0,
+              8
+            ],
+            "3.0": [
+              8,
+              0,
+              4
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.0": [
+              12,
+              0,
+              -4
+            ],
+            "1.5": [
+              4,
+              0,
+              -8
+            ],
+            "3.0": [
+              12,
+              0,
+              -4
+            ]
+          }
+        },
+        "head": {
+          "rotation": [
+            "query.target_x_rotation * 0.4",
+            "query.target_y_rotation * 0.6",
+            0
+          ]
+        }
+      }
+    },
+    "animation.abyss.eye.stare": {
+      "loop": true,
+      "animation_length": 2.0,
+      "bones": {
+        "eye": {
+          "scale": {
+            "0.0": [
+              1,
+              1,
+              1
+            ],
+            "1.0": [
+              1.12,
+              1.12,
+              1
+            ],
+            "2.0": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    "animation.abyss.rift.shimmer": {
+      "loop": true,
+      "animation_length": 2.0,
+      "bones": {
+        "plane_a": {
+          "scale": {
+            "0.0": [
+              1,
+              1,
+              1
+            ],
+            "1.0": [
+              1.15,
+              1.02,
+              1
+            ],
+            "2.0": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "plane_b": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "2.0": [
+              0,
+              180,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.abyss.colossus.walk": {
+      "loop": true,
+      "animation_length": 2.4,
+      "bones": {
+        "rightLeg": {
+          "rotation": {
+            "0.0": [
+              18,
+              0,
+              0
+            ],
+            "1.2": [
+              -18,
+              0,
+              0
+            ],
+            "2.4": [
+              18,
+              0,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.0": [
+              -18,
+              0,
+              0
+            ],
+            "1.2": [
+              18,
+              0,
+              0
+            ],
+            "2.4": [
+              -18,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.0": [
+              -12,
+              0,
+              0
+            ],
+            "1.2": [
+              12,
+              0,
+              0
+            ],
+            "2.4": [
+              -12,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.0": [
+              12,
+              0,
+              0
+            ],
+            "1.2": [
+              -12,
+              0,
+              0
+            ],
+            "2.4": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.0": [
+              4,
+              0,
+              0
+            ],
+            "1.2": [
+              7,
+              0,
+              0
+            ],
+            "2.4": [
+              4,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

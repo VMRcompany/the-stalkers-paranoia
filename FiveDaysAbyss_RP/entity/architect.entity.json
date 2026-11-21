@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:architect",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "stage0": "textures/entity/architect_0",
+        "stage1": "textures/entity/architect_1",
+        "stage2": "textures/entity/architect_2",
+        "stage3": "textures/entity/architect_3"
+      },
+      "geometry": {
+        "default": "geometry.abyss.architect"
+      },
+      "render_controllers": [
+        "controller.render.abyss.architect"
+      ],
+      "animations": {
+        "idle": "animation.abyss.stalker.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

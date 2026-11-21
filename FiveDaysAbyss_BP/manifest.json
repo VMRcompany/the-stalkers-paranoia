@@ -1,0 +1,64 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "THE STALKERS: Paranoia (Created by ВоваМания|YT - original)",
+    "description": "Кооперативный хоррор на 5 реальных суток. Bedrock 1.26.31. Включите эксперимент Beta APIs и оба пака. Created by ВоваМания|YT - original.",
+    "uuid": "8f3a1c24-6d5e-4b7a-9c18-2e4f6a8b0d11",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      31
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "1c6e9a33-5b2d-4f80-a7e4-9d0c3b5e7f22",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "6a2b8c44-7e1f-4d93-b6a5-0c8e2f4a6b33",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "9d4c7e55-2a6b-4c18-8f30-1b7d5e9a0c44",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.8.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ВоваМания|YT"
+    ],
+    "product_type": "addon"
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "abyss.three_notes_dread": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/three_notes_dread",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.daisy_bell_corrupted": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/daisy_bell_corrupted",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.ultimate_terror_mashup": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/ultimate_terror_mashup",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.hand_screech": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/hand_screeched",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.hand_crawl": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/hand_crawl",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.window_slam": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/horror/window_slam_crack",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.notch_gaze": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/notch_red_gaze",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.sky_eyes": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/sky_eyes_open",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.slimy": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/horror/slimy_step",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.cave_scream_1": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/cave_scream_1",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.whisper_1": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/whisper_01",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.steps_1": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/steps_01",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.cave_scream_2": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/cave_scream_2",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.whisper_2": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/whisper_02",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.steps_2": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/steps_02",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.cave_scream_3": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/cave_scream_3",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.whisper_3": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/whisper_03",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.steps_3": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/steps_03",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.cave_scream_4": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/cave_scream_4",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.whisper_4": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/whisper_04",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.steps_4": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/steps_04",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.cave_scream_5": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/horror/cave_scream_5",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.whisper_5": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/whisper_05",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "abyss.steps_5": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/horror/paranoia_pack/steps_05",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    }
+  }
+}

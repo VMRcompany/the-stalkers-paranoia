@@ -1,0 +1,37 @@
+{
+  "format_version": "1.21.110",
+  "minecraft:block": {
+    "description": {
+      "identifier": "abyss:alpha_grass",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.6
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 0.5
+      },
+      "minecraft:geometry": {
+        "identifier": "minecraft:geometry.full_block"
+      },
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "abyss_alpha_grass_side",
+          "render_method": "opaque"
+        },
+        "up": {
+          "texture": "abyss_alpha_grass_top",
+          "render_method": "opaque"
+        },
+        "down": {
+          "texture": "abyss_alpha_dirt",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:light_dampening": 15
+    }
+  }
+}

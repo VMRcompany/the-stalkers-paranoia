@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "abyss:fog_stage_10"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 14,
+        "fog_end": 34,
+        "fog_color": "#3A4450",
+        "render_distance_type": "fixed"
+      },
+      "water": {
+        "fog_start": 0,
+        "fog_end": 16,
+        "fog_color": "#041018",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

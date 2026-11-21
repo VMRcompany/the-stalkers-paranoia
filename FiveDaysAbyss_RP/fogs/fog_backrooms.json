@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "abyss:fog_backrooms"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 4,
+        "fog_end": 22,
+        "fog_color": "#C6B15A",
+        "render_distance_type": "fixed"
+      },
+      "water": {
+        "fog_start": 0,
+        "fog_end": 16,
+        "fog_color": "#6A5A20",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

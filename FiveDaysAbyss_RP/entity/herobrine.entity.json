@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:herobrine",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/herobrine"
+      },
+      "geometry": {
+        "default": "geometry.abyss.humanoid"
+      },
+      "render_controllers": [
+        "controller.render.abyss.herobrine"
+      ],
+      "animations": {
+        "idle": "animation.abyss.humanoid.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

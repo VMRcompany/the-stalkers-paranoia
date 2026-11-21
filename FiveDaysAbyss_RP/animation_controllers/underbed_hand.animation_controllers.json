@@ -1,0 +1,87 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.abyss.underbed_hand": {
+      "initial_state": "crawl",
+      "states": {
+        "crawl": {
+          "animations": [
+            "crawl"
+          ],
+          "transitions": [
+            {
+              "feel": "query.variant == 1"
+            },
+            {
+              "lunge": "query.variant == 2"
+            },
+            {
+              "retreat": "query.variant == 3"
+            },
+            {
+              "hide": "query.variant == 4"
+            }
+          ]
+        },
+        "feel": {
+          "animations": [
+            "feel"
+          ],
+          "transitions": [
+            {
+              "crawl": "query.variant == 0"
+            },
+            {
+              "lunge": "query.variant == 2"
+            },
+            {
+              "retreat": "query.variant == 3"
+            },
+            {
+              "hide": "query.variant == 4"
+            }
+          ]
+        },
+        "lunge": {
+          "animations": [
+            "lunge"
+          ],
+          "transitions": [
+            {
+              "retreat": "query.variant == 3"
+            },
+            {
+              "hide": "query.variant == 4"
+            },
+            {
+              "crawl": "query.variant == 0"
+            }
+          ]
+        },
+        "retreat": {
+          "animations": [
+            "retreat"
+          ],
+          "transitions": [
+            {
+              "hide": "query.variant == 4"
+            },
+            {
+              "crawl": "query.variant == 0"
+            }
+          ]
+        },
+        "hide": {
+          "animations": [
+            "hide"
+          ],
+          "transitions": [
+            {
+              "crawl": "query.variant == 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "abyss:survivor_note",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "abyss_survivor_note"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.abyss:survivor_note.name"
+      },
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

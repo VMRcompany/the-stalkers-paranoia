@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:notch",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "stage0": "textures/entity/notch_stage0",
+        "stage1": "textures/entity/notch_stage1",
+        "stage2": "textures/entity/notch_stage2",
+        "stage3": "textures/entity/notch_stage3"
+      },
+      "geometry": {
+        "default": "geometry.abyss.humanoid"
+      },
+      "render_controllers": [
+        "controller.render.abyss.notch"
+      ],
+      "animations": {
+        "idle": "animation.abyss.humanoid.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

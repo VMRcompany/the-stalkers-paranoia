@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:underbed_hand",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/underbed_hand"
+      },
+      "geometry": {
+        "default": "geometry.abyss.underbed_hand"
+      },
+      "render_controllers": [
+        "controller.render.abyss.hand"
+      ],
+      "animations": {
+        "controller": "controller.animation.abyss.underbed_hand",
+        "crawl": "animation.abyss.hand.crawl",
+        "feel": "animation.abyss.hand.feel",
+        "lunge": "animation.abyss.hand.lunge",
+        "retreat": "animation.abyss.hand.retreat",
+        "hide": "animation.abyss.hand.hide"
+      },
+      "scripts": {
+        "animate": [
+          "controller"
+        ]
+      }
+    }
+  }
+}

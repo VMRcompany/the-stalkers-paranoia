@@ -1,0 +1,35 @@
+{
+  "resource_pack_name": "abyss",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "abyss_cracked_window": {
+      "textures": "textures/blocks/cracked_window"
+    },
+    "abyss_slimy_flesh": {
+      "textures": "textures/blocks/slimy_flesh_block"
+    },
+    "abyss_corrupted_glitch": {
+      "textures": "textures/blocks/corrupted_glitch_block"
+    },
+    "abyss_alpha_grass_top": {
+      "textures": "textures/blocks/alpha_grass_top"
+    },
+    "abyss_alpha_grass_side": {
+      "textures": "textures/blocks/alpha_grass_side"
+    },
+    "abyss_alpha_dirt": {
+      "textures": "textures/blocks/alpha_dirt"
+    },
+    "abyss_alpha_cobblestone": {
+      "textures": "textures/blocks/alpha_cobblestone"
+    },
+    "abyss_alpha_planks": {
+      "textures": "textures/blocks/alpha_planks"
+    },
+    "abyss_alpha_leaves": {
+      "textures": "textures/blocks/alpha_leaves"
+    }
+  }
+}

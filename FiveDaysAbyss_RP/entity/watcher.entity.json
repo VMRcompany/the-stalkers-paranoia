@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:watcher",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/watcher"
+      },
+      "geometry": {
+        "default": "geometry.abyss.stalker"
+      },
+      "render_controllers": [
+        "controller.render.abyss.watcher"
+      ],
+      "animations": {
+        "idle": "animation.abyss.stalker.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

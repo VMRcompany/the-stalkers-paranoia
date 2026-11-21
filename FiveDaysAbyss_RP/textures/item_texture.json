@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "abyss",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "abyss_void_shard": {
+      "textures": "textures/items/void_shard"
+    },
+    "abyss_survivor_note": {
+      "textures": "textures/items/survivor_note"
+    }
+  }
+}

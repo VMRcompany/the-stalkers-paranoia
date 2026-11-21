@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:window_face",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/window_face"
+      },
+      "geometry": {
+        "default": "geometry.abyss.window_face"
+      },
+      "render_controllers": [
+        "controller.render.abyss.window_face"
+      ],
+      "animations": {
+        "idle": "animation.abyss.humanoid.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

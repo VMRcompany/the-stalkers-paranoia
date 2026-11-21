@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:crawler",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/crawler"
+      },
+      "geometry": {
+        "default": "geometry.abyss.crawler"
+      },
+      "render_controllers": [
+        "controller.render.abyss.crawler"
+      ],
+      "animations": {
+        "idle": "animation.abyss.stalker.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      }
+    }
+  }
+}

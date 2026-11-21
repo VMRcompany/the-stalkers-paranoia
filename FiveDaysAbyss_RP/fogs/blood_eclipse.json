@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "abyss:blood_eclipse"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 8,
+        "fog_end": 34,
+        "fog_color": "#3A0008",
+        "render_distance_type": "fixed"
+      },
+      "water": {
+        "fog_start": 0,
+        "fog_end": 16,
+        "fog_color": "#2A0006",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "abyss:fog_bloodmine"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 4,
+        "fog_end": 18,
+        "fog_color": "#4A1012",
+        "render_distance_type": "fixed"
+      },
+      "water": {
+        "fog_start": 0,
+        "fog_end": 16,
+        "fog_color": "#3A0808",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:rift",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/rift"
+      },
+      "geometry": {
+        "default": "geometry.abyss.rift"
+      },
+      "render_controllers": [
+        "controller.render.abyss.rift"
+      ],
+      "animations": {
+        "shimmer": "animation.abyss.rift.shimmer"
+      },
+      "scripts": {
+        "animate": [
+          "shimmer"
+        ]
+      }
+    }
+  }
+}

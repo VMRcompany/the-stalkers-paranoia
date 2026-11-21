@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "abyss:sky_eye",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sky_eye"
+      },
+      "geometry": {
+        "default": "geometry.abyss.sky_eye"
+      },
+      "render_controllers": [
+        "controller.render.abyss.sky_eye"
+      ],
+      "animations": {
+        "stare": "animation.abyss.eye.stare"
+      },
+      "scripts": {
+        "animate": [
+          "stare"
+        ]
+      }
+    }
+  }
+}

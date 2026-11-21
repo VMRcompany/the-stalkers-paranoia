@@ -1,0 +1,28 @@
+{
+  "flipbook_textures": [
+    {
+      "atlas_tile": "abyss_slimy_flesh",
+      "flipbook_texture": "textures/blocks/slimy_flesh_block",
+      "ticks_per_frame": 6,
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "atlas_tile": "abyss_corrupted_glitch",
+      "flipbook_texture": "textures/blocks/corrupted_glitch_block",
+      "ticks_per_frame": 3,
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ]
+    }
+  ]
+}

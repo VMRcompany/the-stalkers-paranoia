@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "abyss:void_shard",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "abyss_void_shard"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.abyss:void_shard.name"
+      },
+      "minecraft:glint": true,
+      "minecraft:max_stack_size": 16
+    }
+  }
+}

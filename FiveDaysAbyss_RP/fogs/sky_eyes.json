@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "abyss:sky_eyes_fog"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 4,
+        "fog_end": 38,
+        "fog_color": "#05060A",
+        "render_distance_type": "fixed"
+      },
+      "water": {
+        "fog_start": 0,
+        "fog_end": 16,
+        "fog_color": "#041018",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}
