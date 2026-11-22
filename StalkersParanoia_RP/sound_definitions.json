@@ -240,6 +240,56 @@
           "volume": 1.0
         }
       ]
+    },
+    "abyss.boot_ok": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/horror/boot_ok",
+          "stream": false,
+          "volume": 1.0
+        }
+      ]
+    },
+    "horror.crystal_faded_child": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/crystal_of_faded_child",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "horror.lavender_town": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/lavender_town",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "horror.new_computers_slowed": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/new_computers_slowed",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "horror.i_just_cant_help_you": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/horror/i_just_cant_help_you",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
     }
   }
 }

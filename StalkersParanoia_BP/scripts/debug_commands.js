@@ -12,7 +12,7 @@ import { forceRetro } from "./retro_textures.js";
 import { setFogStage } from "./fog_director.js";
 import { forceRift } from "./void_rifts.js";
 import { spawnBoss } from "./bosses_ai.js";
-import { playNamed } from "./audio_director.js";
+import { playNamed, playFor } from "./audio_director.js";
 import { forceFinale } from "./ending_ritual.js";
 
 function reply(player, text) {
@@ -58,9 +58,14 @@ export function handleAbyss(player, message) {
     return;
   }
   if (cmd === "music") {
-    const name = ["dread", "daisy", "mashup"].includes(arg) ? arg : "dread";
-    playNamed(null, name);
+    const name = ["dread", "daisy", "mashup", "crystal", "lavender", "computers", "help"].includes(arg) ? arg : "dread";
+    playNamed(arg === "crystal" ? player : null, name);
     reply(player, "§7Музыка: " + name);
+    return;
+  }
+  if (cmd === "crystal") {
+    playFor(player, "horror.crystal_faded_child", 1, 1);
+    reply(player, "§7Crystal of Faded Child играет только у тебя.");
     return;
   }
   if (cmd === "final") { forceFinale(); reply(player, "§7Финал открыт с первого этапа."); return; }
@@ -68,7 +73,7 @@ export function handleAbyss(player, message) {
     "§7!abyss status | setday <1-5> | possess | hand | herobrine | notch",
     "§7!abyss glitch | skyeyes | cavescreamer | catastrophe | crackwindow | retro",
     "§7!abyss fog <1-10|off> | rift | boss <colossus|harvester|echo|architect>",
-    "§7!abyss music <dread|daisy|mashup> | final",
+    "§7!abyss music <dread|daisy|mashup|crystal|lavender|computers|help> | crystal | final",
   ].join("\n"));
 }
 

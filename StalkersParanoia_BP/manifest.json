@@ -1,0 +1,42 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "THE STALKERS: Paranoia - Original (Created by ВоваМания|YT) [BP]",
+    "description": "Кооперативный хоррор v1.0.1. Включите эксперимент Beta APIs и оба пака. Created by ВоваМания|YT.",
+    "uuid": "12a9067d-498b-4b48-8371-bde30e685802",
+    "version": [1, 0, 1],
+    "min_engine_version": [1, 21, 50]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "28c226cb-710f-4581-9a83-236d29853979",
+      "version": [1, 0, 1]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d5e00d76-34da-42d0-ace3-b6c652ffecdd",
+      "entry": "scripts/main.js",
+      "version": [1, 0, 1]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "2c706ba4-a99f-4c50-b0b2-6951ff94776e",
+      "version": [1, 0, 1]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": ["ВоваМания|YT"],
+    "product_type": "addon"
+  }
+}

@@ -1,10 +1,14 @@
-import { world } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { players, alive } from "./realtime_timeline.js";
 
 const MUSIC = {
   dread: { id: "abyss.three_notes_dread", seconds: 9 },
   daisy: { id: "abyss.daisy_bell_corrupted", seconds: 30 },
   mashup: { id: "abyss.ultimate_terror_mashup", seconds: 34 },
+  crystal: { id: "horror.crystal_faded_child", seconds: 78 },
+  lavender: { id: "horror.lavender_town", seconds: 52 },
+  computers: { id: "horror.new_computers_slowed", seconds: 82 },
+  help: { id: "horror.i_just_cant_help_you", seconds: 72 },
 };
 
 const loops = new Map();
@@ -41,7 +45,7 @@ export function playNamed(player, name) {
 
 export function loopNamed(name) {
   const item = MUSIC[name];
-  if (!item) return;
+  if (!item || loops.has(name)) return;
   loops.set(name, { id: item.id, left: item.seconds, every: item.seconds });
   playAll(item.id, 0.9, 1);
 }
@@ -69,7 +73,16 @@ export function caveScream(player) {
 }
 
 export function initAudio() {
-  // Music loops are advanced from the one-second bus by whoever imported us.
+  system.runInterval(() => {
+    try {
+      const list = players().filter(alive);
+      if (!list.length) return;
+      const one = list[Math.floor(Math.random() * list.length)];
+      playFor(one, "horror.crystal_faded_child", 0.9, 1);
+    } catch (e) {
+      console.warn("[abyss crystal] " + e);
+    }
+  }, 12000);
 }
 
 export function tickAudio() {

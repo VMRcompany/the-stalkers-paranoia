@@ -4,10 +4,10 @@ import {
   intensity, isAir, isNight, isProtectedSpot, isSolid, later, players, putBlock, run, saveState,
 } from "./realtime_timeline.js";
 import { beginLock, endLock, holdLook, isLocked, pullStep, refreshLock } from "./player_possession.js";
-import { playFor, caveScream, whisper, footsteps } from "./audio_director.js";
+import { playFor, playAll, caveScream, whisper, footsteps } from "./audio_director.js";
 import { sayCold } from "./world_voice.js";
 
-const active = { herobrine: null, notch: null };
+const active = { herobrine: null, notches: [] };
 const curses = new Map();
 const SIGNS = ["STOP", "I SEE YOU", "WAKE UP"];
 
@@ -40,20 +40,28 @@ function fogEdge(player) {
 
 export function summonHerobrine(player) {
   if (!alive(player)) return;
-  if (active.herobrine) dismissHerobrine();
+  if (active.herobrine) dismissHerobrine(false);
   const spot = fogEdge(player);
   const ent = spawn(player.dimension, "abyss:herobrine", spot);
   if (!ent) return;
+  const help = Math.random() < 0.75;
   try { world.sendMessage("§eHerobrine joined the game"); } catch (e) {}
   active.herobrine = {
     id: ent.id,
     age: 0,
     job: pickJob(player),
     did: false,
-    stare: 0,
-    victim: "",
+    help,
+    look: 0,
+    told: false,
+    victim: player.id,
   };
-  sayCold("Кто-то стоит там, где кончается свет.");
+  if (help) {
+    playAll("horror.i_just_cant_help_you", 0.85, 1);
+    sayCold("Он стоит за деревьями. Если смотреть долго, он уйдёт.");
+  } else {
+    sayCold("В этот раз он не хочет помогать.");
+  }
 }
 
 function pickJob(player) {
@@ -62,14 +70,11 @@ function pickJob(player) {
   return ["pyramid", "leaves", "fire", "signs"][roll];
 }
 
-export function dismissHerobrine() {
+export function dismissHerobrine(silent) {
   if (!active.herobrine) return;
   removeEnt(active.herobrine.id);
-  if (active.herobrine.victim) {
-    const p = players().find((pl) => pl.id === active.herobrine.victim);
-    if (alive(p)) endLock(p);
-  }
   active.herobrine = null;
+  if (silent) return;
   try { world.sendMessage("§eHerobrine left the game"); } catch (e) {}
 }
 
@@ -179,15 +184,57 @@ function doJob(ent, state, player) {
   else digTunnel(dim, player);
 }
 
-function startHerobrineStare(state, ent, player) {
-  if (state.stare > 0 || isLocked(player)) return;
-  state.stare = 1;
-  state.victim = player.id;
-  beginLock(player, 140);
+function lookingAt(player, ent) {
   try {
-    player.onScreenDisplay.setTitle("§fНЕ ОТВОДИ ВЗГЛЯД", { stayDuration: 20, fadeInDuration: 0, fadeOutDuration: 5 });
+    const hits = player.getEntitiesFromViewDirection({ maxDistance: 40 });
+    for (const hit of hits) {
+      if (hit.entity && hit.entity.id === ent.id) return true;
+    }
   } catch (e) {}
-  whisper(player);
+  return false;
+}
+
+function helpLines(player) {
+  try {
+    player.onScreenDisplay.setTitle("§fI want to help you", {
+      stayDuration: 50,
+      fadeInDuration: 5,
+      fadeOutDuration: 15,
+    });
+    player.onScreenDisplay.setActionBar("§7I just can't help you...");
+  } catch (e) {}
+  try { player.sendMessage("§fI want to help you"); } catch (e) {}
+  later(40, () => {
+    if (alive(player)) {
+      try { player.sendMessage("§7I just can't help you..."); } catch (e) {}
+    }
+  });
+}
+
+function attackBurst(ent, player) {
+  const dim = ent.dimension;
+  const loc = player.location;
+  try { dim.runCommand(`summon lightning_bolt ${loc.x} ${loc.y} ${loc.z}`); } catch (e) {}
+  const ahead = blockAt(dim, loc.x, loc.y, loc.z);
+  if (ahead && isAir(ahead) && !isProtectedSpot(dim.id, loc.x, loc.y, loc.z, ahead.typeId)) {
+    putBlock(dim, Math.floor(loc.x), Math.floor(loc.y), Math.floor(loc.z), "minecraft:web");
+  }
+  loneFire(dim, anchorFor(player));
+  caveScream(player);
+  try { player.applyDamage(6, { cause: EntityDamageCause.entityAttack, damagingEntity: ent }); } catch (e) {
+    try { player.applyDamage(6); } catch (e2) {}
+  }
+  try { player.addEffect("blindness", 40, { amplifier: 0, showParticles: false }); } catch (e) {}
+  const dx = loc.x - ent.location.x;
+  const dz = loc.z - ent.location.z;
+  const len = Math.hypot(dx, dz) || 1;
+  try {
+    ent.teleport({
+      x: ent.location.x + (dx / len) * 0.6,
+      y: loc.y,
+      z: ent.location.z + (dz / len) * 0.6,
+    });
+  } catch (e) {}
 }
 
 function tickHerobrine() {
@@ -202,56 +249,57 @@ function tickHerobrine() {
   const player = list.slice().sort((a, b) => dist3(a.location, ent.location) - dist3(b.location, ent.location))[0];
   face(ent, player.location);
   if (state.age === 20) doJob(ent, state, player);
-  const d = dist3(ent.location, player.location);
-  if (!state.stare && state.age > 40 && d < 10) startHerobrineStare(state, ent, player);
-  if (state.stare) {
-    const victim = players().find((p) => p.id === state.victim) || player;
-    if (!alive(victim)) { dismissHerobrine(); return; }
-    refreshLock(victim, 40);
-    const head = ent.getHeadLocation ? ent.getHeadLocation() : ent.location;
-    holdLook(victim, head);
-    pullStep(victim, ent.location, 0.04);
-    state.stare += 1;
-    if (state.stare > 100) {
-      endLock(victim);
-      try {
-        victim.addEffect("blindness", 60, { amplifier: 0, showParticles: true });
-      } catch (e) {}
-      dismissHerobrine();
+  if (state.help) {
+    const watcher = list.find((p) => lookingAt(p, ent));
+    if (watcher) {
+      state.look += 1;
+      if (!state.told) {
+        state.told = true;
+        state.victim = watcher.id;
+        helpLines(watcher);
+      }
+      if (state.look >= 600) {
+        dismissHerobrine(true);
+        return;
+      }
+    } else {
+      state.look = 0;
     }
-  } else if (state.age > 400) {
-    dismissHerobrine();
-  } else if (state.age % 10 === 0) {
-    const edge = fogEdge(player);
-    const dx = edge.x - ent.location.x;
-    const dz = edge.z - ent.location.z;
-    const len = Math.hypot(dx, dz) || 1;
-    try {
-      ent.teleport({
-        x: ent.location.x + (dx / len) * 0.35,
-        y: edge.y,
-        z: ent.location.z + (dz / len) * 0.35,
-      });
-    } catch (e) {}
+    if (state.age > 900) dismissHerobrine(false);
+    return;
   }
+  if (state.age === 30 || state.age % 80 === 0) attackBurst(ent, player);
+  if (state.age > 240) dismissHerobrine(false);
 }
 
-export function summonNotch(player) {
-  if (!alive(player)) return;
-  if (active.notch) dismissNotch(false);
+function notchSpot(player) {
   const view = player.getViewDirection ? player.getViewDirection() : { x: 0, y: 0, z: 1 };
-  const dist = 14 + Math.random() * 8;
-  const raw = groundPos(player.dimension, player.location.x + view.x * dist, player.location.z + view.z * dist, player.location.y);
-  const ent = spawn(player.dimension, "abyss:notch", raw);
-  if (!ent) return;
-  try { ent.triggerEvent("abyss:stage0"); } catch (e) {}
+  let vx = view.x;
+  let vz = view.z;
+  const h = Math.hypot(vx, vz) || 1;
+  vx /= h;
+  vz /= h;
+  const x = player.location.x + vx * 15;
+  const z = player.location.z + vz * 15;
+  const y = groundPos(player.dimension, x, z, player.location.y).y;
+  return { x, y, z };
+}
+
+export function summonNotch() {
+  const list = players().filter(alive);
+  if (!list.length) return;
+  if (active.notches.length) dismissNotch(false);
   try { world.sendMessage("§eNotch joined the game"); } catch (e) {}
-  active.notch = { id: ent.id, age: 0, victim: player.id, stage: 0, hit: false };
-  beginLock(player, 220);
-  playFor(player, "abyss.notch_gaze", 1, 1);
-  try {
-    player.onScreenDisplay.setTitle("§4ОН СМОТРИТ", { stayDuration: 30, fadeInDuration: 0, fadeOutDuration: 10, subtitle: "§7не отводи взгляд" });
-  } catch (e) {}
+  playAll("horror.lavender_town", 1, 1);
+  active.notchTicks = 0;
+  for (const player of list) {
+    const spot = notchSpot(player);
+    const ent = spawn(player.dimension, "abyss:notch", spot);
+    if (!ent) continue;
+    try { ent.triggerEvent("abyss:stage0"); } catch (e) {}
+    beginLock(player, 220);
+    active.notches.push({ id: ent.id, age: 0, victim: player.id, stage: 0, hit: false });
+  }
   sayCold("Не отводи взгляд. Он считает это грубостью.");
 }
 
@@ -260,61 +308,66 @@ function setStage(ent, stage) {
 }
 
 export function dismissNotch(punish) {
-  const state = active.notch;
-  if (!state) return;
-  const player = players().find((p) => p.id === state.victim);
-  removeEnt(state.id);
-  active.notch = null;
+  const states = active.notches.splice(0, active.notches.length);
+  active.notchTicks = 0;
+  if (!states.length) return;
   try { world.sendMessage("§eNotch left the game"); } catch (e) {}
-  if (!alive(player)) return;
-  endLock(player);
-  try { player.runCommand("stopsound @s abyss.notch_gaze"); } catch (e) {}
-  if (!punish || state.hit) return;
-  state.hit = true;
-  let amount = 10;
-  try {
-    const hp = player.getComponent("minecraft:health");
-    if (hp) amount = Math.max(1, (hp.effectiveMax || hp.defaultValue || 20) / 2);
-  } catch (e) {}
-  try { player.applyDamage(amount, { cause: EntityDamageCause.magic }); } catch (e) {
-    try { player.applyDamage(amount); } catch (e2) {}
-  }
-  try { player.addEffect("darkness", 400, { amplifier: 0, showParticles: true }); } catch (e) {}
-  later(1, () => {
-    if (!alive(player)) return;
-    let current = 1;
-    try { current = player.getComponent("minecraft:health").currentValue; } catch (e) {}
-    if (current > 0) {
-      curses.set(player.id, { day: gameDayIndex(), next: 20 * (20 + Math.floor(Math.random() * 20)) });
-      try { player.setDynamicProperty("abyss_curse_day", gameDayIndex()); } catch (e) {}
-      Bus.emit("notch_survived", { name: player.name });
-      sayCold(`${player.name} ещё дышит. До конца этих суток я буду напоминать.`);
+  for (const state of states) {
+    const player = players().find((p) => p.id === state.victim);
+    removeEnt(state.id);
+    if (!alive(player)) continue;
+    endLock(player);
+    try { player.runCommand("stopsound @s horror.lavender_town"); } catch (e) {}
+    if (!punish || state.hit) continue;
+    state.hit = true;
+    let amount = 10;
+    try {
+      const hp = player.getComponent("minecraft:health");
+      if (hp) amount = Math.max(1, (hp.effectiveMax || hp.defaultValue || 20) / 2);
+    } catch (e) {}
+    try { player.applyDamage(amount, { cause: EntityDamageCause.magic }); } catch (e) {
+      try { player.applyDamage(amount); } catch (e2) {}
     }
-  });
+    try { player.addEffect("darkness", 400, { amplifier: 0, showParticles: true }); } catch (e) {}
+    later(1, () => {
+      if (!alive(player)) return;
+      let current = 1;
+      try { current = player.getComponent("minecraft:health").currentValue; } catch (e) {}
+      if (current > 0) {
+        curses.set(player.id, { day: gameDayIndex(), next: 20 * (20 + Math.floor(Math.random() * 20)) });
+        try { player.setDynamicProperty("abyss_curse_day", gameDayIndex()); } catch (e) {}
+        Bus.emit("notch_survived", { name: player.name });
+        sayCold(`${player.name} ещё дышит. До конца этих суток я буду напоминать.`);
+      }
+    });
+  }
 }
 
 function tickNotch() {
-  const state = active.notch;
-  if (!state) return;
-  let ent;
-  try { ent = world.getEntity(state.id); } catch (e) { ent = undefined; }
-  if (!alive(ent)) { active.notch = null; return; }
-  const player = players().find((p) => p.id === state.victim);
-  if (!alive(player) || player.dimension !== ent.dimension) { dismissNotch(false); return; }
-  state.age += 1;
-  face(ent, player.getHeadLocation ? player.getHeadLocation() : player.location);
-  refreshLock(player, 30);
-  const stage = state.age < 66 ? 0 : state.age < 132 ? 1 : state.age < 180 ? 2 : 3;
-  if (stage !== state.stage) {
-    state.stage = stage;
-    setStage(ent, stage);
-    try {
-      ent.dimension.spawnParticle("minecraft:redstone_wire_dust_particle", ent.getHeadLocation());
-    } catch (e) {}
+  if (!active.notches.length) return;
+  active.notchTicks = (active.notchTicks || 0) + 1;
+  let oldest = 0;
+  for (const state of active.notches) {
+    let ent;
+    try { ent = world.getEntity(state.id); } catch (e) { ent = undefined; }
+    const player = players().find((p) => p.id === state.victim);
+    if (!alive(ent) || !alive(player) || player.dimension !== ent.dimension) continue;
+    state.age += 1;
+    oldest = Math.max(oldest, state.age);
+    face(ent, player.getHeadLocation ? player.getHeadLocation() : player.location);
+    refreshLock(player, 30);
+    const stage = state.age < 66 ? 0 : state.age < 132 ? 1 : state.age < 180 ? 2 : 3;
+    if (stage !== state.stage) {
+      state.stage = stage;
+      setStage(ent, stage);
+      try { ent.dimension.spawnParticle("minecraft:redstone_wire_dust_particle", ent.getHeadLocation()); } catch (e) {}
+    }
+    const head = ent.getHeadLocation ? ent.getHeadLocation() : ent.location;
+    holdLook(player, head);
+    pullStep(player, ent.location, 0.08);
+    if (state.age % 40 === 0) footsteps(player);
   }
-  pullStep(player, ent.location, 0.08);
-  if (state.age % 40 === 0) footsteps(player);
-  if (state.age >= 200) dismissNotch(true);
+  if (active.notchTicks >= 200) dismissNotch(true);
 }
 
 function screamer(player) {
@@ -379,19 +432,17 @@ export function initHerobrine() {
     try { tickCurses(); } catch (e) {}
   }, 5);
   Bus.on("second", () => {
-    if (active.herobrine || active.notch) return;
+    if (active.herobrine || active.notches.length) return;
     const list = players().filter(alive);
     if (!list.length) return;
     const night = isNight();
-    const chance = (night ? 0.04 : 0.012) * intensity();
+    const chance = (night ? 0.06 : 0.03) * intensity();
     if (Math.random() < chance) summonHerobrine(list[Math.floor(Math.random() * list.length)]);
-    else if (Math.random() < chance * 0.45 && gameDayIndex() >= 0) {
-      summonNotch(list[Math.floor(Math.random() * list.length)]);
-    }
+    else if (Math.random() < chance * 0.35) summonNotch();
   });
 }
 
-export function notchActive() { return !!active.notch; }
+export function notchActive() { return active.notches.length > 0; }
 export function herobrineActive() { return !!active.herobrine; }
 
 void Abyss;

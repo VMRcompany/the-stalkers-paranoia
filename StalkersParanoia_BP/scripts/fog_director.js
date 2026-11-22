@@ -1,9 +1,16 @@
 import { world } from "@minecraft/server";
-import { Abyss, Bus, players, alive, isThickHours, realDay, gameDayNumber, intensity, run } from "./realtime_timeline.js";
+import { Abyss, Bus, players, alive, isThickHours, realDay, gameDayNumber, gameDayIndex, intensity, run, saveState, timeOfDay } from "./realtime_timeline.js";
+import { loopNamed, stopLoop } from "./audio_director.js";
 
 const STAGE_ID = "abyss_stage";
 const THICK_ID = "abyss_thick";
 const SPECIAL_ID = "abyss_special";
+const NIGHT_ID = "abyss_first_night";
+
+export function isFirstBlackNight() {
+  const t = timeOfDay();
+  return gameDayIndex() === 0 && t >= 13000 && t <= 23000;
+}
 
 function pushFog(player, fogId, handle) {
   try { player.runCommand(`fog @s remove ${handle}`); } catch (e) {}
@@ -14,8 +21,26 @@ function popFog(player, handle) {
   try { player.runCommand(`fog @s remove ${handle}`); } catch (e) {}
 }
 
+function retireComputers() {
+  if (Abyss.flags.computersRetired) return;
+  if (gameDayIndex() < 1) return;
+  Abyss.flags.computersRetired = true;
+  stopLoop("computers");
+  saveState();
+}
+
 export function applyFog(player) {
   if (!alive(player)) return;
+  if (isFirstBlackNight() && !Abyss.flags.computersRetired) {
+    popFog(player, STAGE_ID);
+    popFog(player, THICK_ID);
+    popFog(player, SPECIAL_ID);
+    pushFog(player, "abyss:first_night_black_fog", NIGHT_ID);
+    loopNamed("computers");
+    return;
+  }
+  popFog(player, NIGHT_ID);
+  retireComputers();
   if (Abyss.flags.specialFog) {
     pushFog(player, Abyss.flags.specialFog, SPECIAL_ID);
   } else {
@@ -56,6 +81,7 @@ export function setFogStage(n) {
       popFog(p, STAGE_ID);
       popFog(p, THICK_ID);
       popFog(p, SPECIAL_ID);
+      popFog(p, NIGHT_ID);
     }
     return;
   }

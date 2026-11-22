@@ -1,0 +1,20 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "THE STALKERS: Paranoia - Original (Created by ВоваМания|YT) [RP]",
+    "description": "Текстуры, сущности, туман и звук v1.0.1. Created by ВоваМания|YT.",
+    "uuid": "2c706ba4-a99f-4c50-b0b2-6951ff94776e",
+    "version": [1, 0, 1],
+    "min_engine_version": [1, 21, 50]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "3be5c912-3dad-4943-ad09-5b84bd357b60",
+      "version": [1, 0, 1]
+    }
+  ],
+  "metadata": {
+    "authors": ["ВоваМания|YT"]
+  }
+}
